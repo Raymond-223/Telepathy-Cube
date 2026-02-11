@@ -1,0 +1,486 @@
+/* ========================================
+   灵犀魔方 (Sentient Cube) Web仿真样式
+   双脑模式主题 + 科技感UI
+   ======================================== */
+
+/* CSS变量 - 双模式主题 */
+:root {
+    /* 通用 */
+    --font-main: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* 右脑模式 (Ambient) - 暖色调 */
+    --ambient-primary: #ffaa44;
+    --ambient-secondary: #ff8844;
+    --ambient-bg: linear-gradient(135deg, #2d1f1a 0%, #1a1410 100%);
+    --ambient-panel: rgba(45, 30, 20, 0.9);
+    --ambient-border: rgba(255, 170, 68, 0.3);
+    --ambient-glow: 0 0 30px rgba(255, 170, 68, 0.2);
+
+    /* 左脑模式 (Focus) - 冷色调 */
+    --focus-primary: #00ccff;
+    --focus-secondary: #0088cc;
+    --focus-bg: linear-gradient(135deg, #0a1a2e 0%, #0d0d1a 100%);
+    --focus-panel: rgba(10, 25, 45, 0.9);
+    --focus-border: rgba(0, 204, 255, 0.3);
+    --focus-glow: 0 0 30px rgba(0, 204, 255, 0.2);
+}
+
+/* 重置和基础 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    overflow: hidden;
+    transition: var(--transition-smooth);
+}
+
+/* ==================== 双模式主题 ==================== */
+body.ambient-mode {
+    background: var(--ambient-bg);
+    --current-primary: var(--ambient-primary);
+    --current-secondary: var(--ambient-secondary);
+    --current-panel: var(--ambient-panel);
+    --current-border: var(--ambient-border);
+    --current-glow: var(--ambient-glow);
+}
+
+body.focus-mode {
+    background: var(--focus-bg);
+    --current-primary: var(--focus-primary);
+    --current-secondary: var(--focus-secondary);
+    --current-panel: var(--focus-panel);
+    --current-border: var(--focus-border);
+    --current-glow: var(--focus-glow);
+}
+
+/* ==================== 3D容器 ==================== */
+#container {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+/* ==================== 顶部标题栏 ==================== */
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    background: var(--current-panel);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--current-border);
+    z-index: 100;
+    transition: var(--transition-smooth);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-icon {
+    font-size: 28px;
+    filter: drop-shadow(0 0 10px var(--current-primary));
+}
+
+.logo-text {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--current-primary);
+    text-shadow: 0 0 15px var(--current-primary);
+}
+
+.logo-sub {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-left: 5px;
+}
+
+#mode-label {
+    font-size: 14px;
+    color: var(--current-primary);
+    padding: 8px 16px;
+    border: 1px solid var(--current-border);
+    border-radius: 20px;
+    background: rgba(0, 0, 0, 0.3);
+    transition: var(--transition-smooth);
+}
+
+/* ==================== 左侧信息面板 ==================== */
+#info-panel {
+    position: fixed;
+    top: 80px;
+    left: 20px;
+    width: 220px;
+    background: var(--current-panel);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--current-border);
+    border-radius: 16px;
+    padding: 20px;
+    z-index: 100;
+    box-shadow: var(--current-glow);
+    transition: var(--transition-smooth);
+}
+
+#info-panel h3 {
+    font-size: 14px;
+    color: var(--current-primary);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--current-border);
+}
+
+/* 表情网格 */
+.emotion-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.emotion-btn {
+    width: 100%;
+    aspect-ratio: 1;
+    border: 1px solid var(--current-border);
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    font-size: 24px;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.emotion-btn:hover {
+    background: var(--current-primary);
+    transform: scale(1.1);
+    box-shadow: 0 0 15px var(--current-primary);
+}
+
+/* 模式切换按钮 */
+.mode-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    margin-bottom: 12px;
+}
+
+body.ambient-mode .mode-btn {
+    background: linear-gradient(135deg, var(--ambient-primary), var(--ambient-secondary));
+    color: #1a1a1a;
+}
+
+body.focus-mode .mode-btn {
+    background: linear-gradient(135deg, var(--focus-primary), var(--focus-secondary));
+    color: #1a1a1a;
+}
+
+.mode-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* 模式描述 */
+.mode-desc {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.6;
+}
+
+.mode-desc p {
+    padding: 5px 0;
+}
+
+body.ambient-mode .focus-desc {
+    opacity: 0.3;
+}
+
+body.focus-mode .ambient-desc {
+    opacity: 0.3;
+}
+
+/* ==================== 右侧空间锚点面板 ==================== */
+#anchor-panel {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    width: 200px;
+    background: var(--current-panel);
+    backdrop-filter: blur(15px);
+    border: 1px solid var(--current-border);
+    border-radius: 16px;
+    padding: 20px;
+    z-index: 100;
+    box-shadow: var(--current-glow);
+    transition: var(--transition-smooth);
+}
+
+#anchor-panel h3 {
+    font-size: 14px;
+    color: var(--current-primary);
+    margin-bottom: 8px;
+}
+
+.anchor-hint {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 15px;
+}
+
+.item-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.item-list.scrollable {
+    max-height: 280px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.item-list.scrollable::-webkit-scrollbar {
+    width: 4px;
+}
+
+.item-list.scrollable::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+}
+
+.item-list.scrollable::-webkit-scrollbar-thumb {
+    background: var(--current-primary);
+    border-radius: 2px;
+}
+
+.item-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1px solid var(--current-border);
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.item-btn:hover {
+    background: var(--current-primary);
+    color: #1a1a1a;
+    transform: translateX(5px);
+    box-shadow: 0 0 15px var(--current-primary);
+}
+
+.item-icon {
+    font-size: 18px;
+}
+
+.item-name {
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* 状态显示 */
+.status-box {
+    padding-top: 15px;
+    border-top: 1px solid var(--current-border);
+}
+
+.status-box h4 {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 10px;
+}
+
+.status-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    padding: 5px 0;
+}
+
+.status-label {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.status-value {
+    color: var(--current-primary);
+    font-weight: 500;
+}
+
+/* ==================== 底部操作提示 ==================== */
+#footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--current-panel);
+    backdrop-filter: blur(15px);
+    border-top: 1px solid var(--current-border);
+    z-index: 100;
+    transition: var(--transition-smooth);
+}
+
+.tip {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.credit {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* ==================== 加载动画 ==================== */
+#loading {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a1a2e 0%, #0d0d1a 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.5s ease;
+}
+
+#loading.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* 3D魔方加载动画 */
+.cube-loader {
+    width: 60px;
+    height: 60px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: cube-rotate 2s infinite linear;
+}
+
+@keyframes cube-rotate {
+    0% {
+        transform: rotateX(0deg) rotateY(0deg);
+    }
+
+    100% {
+        transform: rotateX(360deg) rotateY(360deg);
+    }
+}
+
+.cube-face {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: 2px solid #00ccff;
+    background: rgba(0, 204, 255, 0.1);
+    box-shadow: inset 0 0 20px rgba(0, 204, 255, 0.3);
+}
+
+.cube-face.front {
+    transform: translateZ(30px);
+}
+
+.cube-face.back {
+    transform: rotateY(180deg) translateZ(30px);
+}
+
+.cube-face.left {
+    transform: rotateY(-90deg) translateZ(30px);
+}
+
+.cube-face.right {
+    transform: rotateY(90deg) translateZ(30px);
+}
+
+.cube-face.top {
+    transform: rotateX(90deg) translateZ(30px);
+}
+
+.cube-face.bottom {
+    transform: rotateX(-90deg) translateZ(30px);
+}
+
+#loading p {
+    margin-top: 30px;
+    color: #00ccff;
+    font-size: 14px;
+    letter-spacing: 2px;
+}
+
+/* ==================== 响应式设计 ==================== */
+@media (max-width: 900px) {
+
+    #info-panel,
+    #anchor-panel {
+        width: 180px;
+        padding: 15px;
+    }
+
+    .emotion-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .emotion-btn {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    #header {
+        padding: 0 15px;
+    }
+
+    .logo-text {
+        font-size: 16px;
+    }
+
+    .logo-sub {
+        display: none;
+    }
+
+    #info-panel {
+        left: 10px;
+        top: 70px;
+        width: 160px;
+    }
+
+    #anchor-panel {
+        right: 10px;
+        top: 70px;
+        width: 160px;
+    }
+
+    #footer {
+        flex-direction: column;
+        gap: 5px;
+        padding: 10px;
+    }
+}
