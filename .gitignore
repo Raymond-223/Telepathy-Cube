@@ -1,10 +1,18 @@
-# 必须要忽略的
+# Node.js 依赖
 node_modules/
-.DS_Store
 
-# 如果你有打包生成的文件夹（通常叫 dist 或 build），也建议忽略，或者根据需求保留
-dist/
-build/
+# 
+bin/
+obj/
+.vs/
+*.user
+*.suo
 
-# 环境变量文件（如果有密码，绝对不能传）
+# VS Code 配置
+.vscode/
+
+# 环境变量
 .env
+
+# 系统文件
+.DS_Store
