@@ -1,0 +1,27 @@
+{
+  "objects": [
+    {
+      "id": "seed_phone",
+      "name": "手机",
+      "location": "桌面右前方",
+      "confidence": 0.91,
+      "timestamp": "2026-02-12T00:00:00.000Z"
+    },
+    {
+      "id": "seed_wallet",
+      "name": "钱包",
+      "location": "桌面左后方",
+      "confidence": 0.87,
+      "timestamp": "2026-02-12T00:00:00.000Z"
+    },
+    {
+      "id": "seed_key",
+      "name": "钥匙",
+      "location": "显示器底座旁",
+      "confidence": 0.94,
+      "timestamp": "2026-02-12T00:00:00.000Z"
+    }
+  ],
+  "reminders": []
+}
+

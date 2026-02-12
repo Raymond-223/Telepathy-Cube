@@ -1,0 +1,126 @@
+doctype html
+html(lang='zh-CN')
+  head
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    meta(name='description' content='灵犀魔方 Web仿真 - 具身智能桌面伴侣')
+    title= title
+    link(rel='stylesheet' href='/stylesheets/simulation.css')
+    script(type='importmap').
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.162.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.162.0/examples/jsm/"
+        }
+      }
+  body.ambient-mode
+    //- 3D渲染容器
+    #container
+
+    //- 顶部标题栏
+    header#header
+      .logo
+        span.logo-icon 🧊
+        span.logo-text 灵犀魔方
+        span.logo-sub Sentient Cube
+      #mode-label 感性伴侣 · Ambient
+
+    //- 左侧信息面板
+    aside#info-panel
+      h3 🎭 幻影点阵屏
+      .emotion-grid
+        button.emotion-btn(data-emotion='calm' title='平静') 😌
+        button.emotion-btn(data-emotion='anxious' title='焦虑') 😰
+        button.emotion-btn(data-emotion='relaxed' title='放松') 😊
+        button.emotion-btn(data-emotion='excited' title='兴奋') 🤩
+        button.emotion-btn(data-emotion='deepSleep' title='深睡') 😴
+        button.emotion-btn(data-emotion='meditative' title='冥想') 🧘
+
+      h3 🧠 双脑模式
+      button#mode-toggle.mode-btn 🟢 右脑模式
+      .mode-desc
+        p.ambient-desc 💭 感性伴侣：呼吸律动、柔和陪伴
+        p.focus-desc 🎯 理性助理：精准定位、任务执行
+
+    //- 右侧空间锚点面板
+    aside#anchor-panel
+      h3 📍 空间锚点 Plus
+      p.anchor-hint 点击物品，魔方将指向它
+      .item-list.scrollable
+
+        button.item-btn(data-item='手机')
+          span.item-icon 📱
+          span.item-name 手机
+        button.item-btn(data-item='钱包')
+          span.item-icon 👛
+          span.item-name 钱包
+
+
+        button.item-btn(data-item='耳机')
+          span.item-icon 🎧
+          span.item-name 耳机
+        button.item-btn(data-item='充电器')
+          span.item-icon 🔌
+          span.item-name 充电器
+        button.item-btn(data-item='遥控器')
+          span.item-icon 📺
+          span.item-name 遥控器
+        button.item-btn(data-item='药瓶')
+          span.item-icon 💊
+          span.item-name 药瓶
+        button.item-btn(data-item='U盘')
+          span.item-icon 💾
+          span.item-name U盘
+        button.item-btn(data-item='口红')
+          span.item-icon 💄
+          span.item-name 口红
+
+
+      .status-box
+        h4 状态
+        .status-item
+          span.status-label 云台
+          span#gimbal-status.status-value 收起
+        .status-item
+          span.status-label 激光
+          span#laser-status.status-value 关闭
+        .status-item  
+          span.status-label 呼吸
+          span#breath-status.status-value 运行中
+
+      .status-box
+        h4 🗣 指令模拟
+        .command-box
+          input#command-input(type='text' placeholder='例如：我的钥匙在哪？' maxlength='80')
+          button#command-btn.action-btn-small 发送
+        p#assistant-reply.status-value 我在，随时可以开始。
+
+      .status-box
+        h4 ⏰ 提醒
+        .command-box
+          input#reminder-time(type='text' placeholder='明天9点')
+          input#reminder-content(type='text' placeholder='提醒内容' maxlength='60')
+          button#reminder-btn.action-btn-small 添加
+        ul#reminder-list.reminder-list
+
+    //- 底部操作提示
+    footer#footer
+      .controls
+        button#export-btn.action-btn 📤 导出模型 (GLB)
+        span.hint 拖拽旋转 • 滚轮缩放 • 右键平移
+      .tip 💡 鼠标拖动旋转视角 | 滚轮缩放 | 点击物品启动寻物
+      .credit Sentient Cube Web Simulation v1.0
+
+    //- 加载动画
+    #loading
+      .cube-loader
+        .cube-face.front
+        .cube-face.back
+        .cube-face.left
+        .cube-face.right
+        .cube-face.top
+        .cube-face.bottom
+      p 灵犀魔方 加载中...
+
+    //- 主脚本
+    script(type='module' src='/javascripts/simulation/main.js')
